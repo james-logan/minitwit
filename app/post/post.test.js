@@ -83,7 +83,21 @@ describe('Post', function () {
 
   describe('.validate()', function () {
     it('should throw an error if more than two words are submited', function () {
-      expect(Post.validate.bind(Post, "kitten assault imminent")).to.throw(Error);
+      expect(Post.validate.bind(Post, "kitten assault imminent")).to.throw(Error, /Too many words/);
+    });
+
+    it('should throw an error if two words are submitted and neither is a mention', function () {
+      expect(Post.validate.bind(Post, "kitten assault")).to.throw(Error, /One must be a callout/);
+    });
+    it('should throw an error if the text is an empty string', function () {
+      expect(Post.validate.bind(Post, "")).to.throw(Error);
+    });
+    it('should throw an error if the text is a string with a lone @', function () {
+      expect(Post.validate.bind(Post, "kitten @")).to.throw(Error);
+      expect(Post.validate.bind(Post, "@")).to.throw(Error);
+    });
+    it('should throw an error with two mentions', function () {
+      expect(Post.validate.bind(Post, "@kitten @assault")).to.throw(Error);
     });
   });
 });
