@@ -6,6 +6,14 @@ var expect = require('chai').expect
 var app = require('../../app')
   , database = require('../../lib/mongo');
 
+app.get('/admin', function(req, res){
+  res.send(200);
+});
+
+app.get('admin/users', function(req, res){
+  res.send(200);
+}); 
+
 describe('Admin Dashboard', function() {
   describe('GET /admin', function() {
 
