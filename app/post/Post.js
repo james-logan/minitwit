@@ -15,8 +15,6 @@ Object.defineProperty(Post, 'collection', {
   }
 });
 
-
-
 Post.count = function (cb) {
   return Post.collection.count(cb);
 };
@@ -44,6 +42,15 @@ Post.findAll = function (cb) {
     cb(err, prototypedPosts);
   });
 };
+
+Post.validate = function (post, cb) {
+  var postArray = post.split(" ");
+  if (postArray.length > 2) {
+    throw new Error('Too many words')
+  } else {
+
+  }
+}
 
 module.exports = Post;
 
