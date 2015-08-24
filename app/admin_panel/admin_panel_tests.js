@@ -34,7 +34,7 @@ describe('Admin Dashboard', function(){
     it('Should return with a 200', function() {
       request(app)
          .get('/admin')
-         .expect(200,);
+         .expect(200);
          done();
     });
 
