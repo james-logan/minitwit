@@ -44,11 +44,18 @@ Post.findAll = function (cb) {
 };
 
 Post.validate = function (post, cb) {
-  var postArray = post.split(" ");
-  if (postArray.length > 2) {
+  req.body.text = req.body.text.trim();
+  var postArray = req.body.text.split(" ");
+  if (postArray[0] === ""){
+    throw new Error('Post must contain at least one character')
+  } else if (postArray.length > 2) {
     throw new Error('Too many words')
-  } else {
-
+  } else if (postArray[0] === "@" || postArray[1] === "@"){
+    throw new Error('@ symbol must be followed by a username to mention correctly')
+  } else if (postArray[0][0] === "@" && postArray[1][0] === "@"){
+    throw new Error('You may only have one mention')
+  } else if (postArray[0][0] !== "@" && postArray[1][0] !== "@"){
+    throw new Error('You may only have one mention')
   }
 }
 
