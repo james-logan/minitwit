@@ -56,3 +56,11 @@ module.exports = Post
 function setPrototype(pojo) {
   return _.create(Post.prototype, pojo);
 }
+
+
+Post.findById = function (id, cb) {
+  Post.collection.findOne({_id: ObjectID(id)}, function (err, post) {
+    // cb(err, post);
+    cb(err, setPrototype(post));
+  });
+};

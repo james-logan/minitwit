@@ -6,14 +6,15 @@ var expect = require('chai').expect
 var app = require('../../app')
   , database = require('../../lib/mongo');
 
-describe('Autocomplete', function() {
-  describe('GET /mention', function() {
+describe('Admin Dashboard', function() {
+  describe('GET /admin', function() {
 
-    before(function(done) { // add users to user collection in db
+    // Create the dummy user data in the database for testing
+    before(function(done) { 
       var users = [
-        { name : 'world' },
-        { name : 'work' },
-        { name : 'woman' }
+        { name : 'Bob', admin_status: true},
+        { name : 'Tim' , admin_status: false},
+        { name : 'Kate', admin_status: true }
       ];
       database.connect(function(err,db) {
         db.collection('user').drop( // but clear collection first
@@ -27,33 +28,28 @@ describe('Autocomplete', function() {
       });
     });
 
-    it('should send an empty array when there\'s no query', function(done) {
+    it('Should show the dashboard for the admin panel', function(done) {
       request(app)
-        .get('/autocomplete/mention')
-        .expect(200)
-        .end(function(err,res) {
-          if(err) return done(err);
-          expect(res.body).to.eql([]);
-          done();
-        });
+        .get('/admin')
+        .expect(200,done);
     });
 
-    it('should respond with json', function(done) {
+    it('Should show a searchable list of users', function(done) {
       request(app)
-        .get('/autocomplete/mention?pattern=wor')
+        .get('/admin/users')
         .set('Accept','application/json')
         .expect('Content-Type',/json/)
         .expect(200,done);
     });
 
-    it('should respond with matches and not with non-matches', function(done) {
+    it('User search should respond with matches and not with non-matches', function(done) {
       request(app)   // seeking matches for wor
-        .get('/autocomplete/mention?pattern=wor')
+        .get('/admin/users?name=Tim')
         .expect(200)
         .end(function(err, res) {
           if(err) return done(err);
           expect(res.body).to.deep.equal([
-            {name: 'world'}, {name: 'work'}
+            {name: 'Tim'}, {name: 'Bob'}
           ]);
           done();
       });
