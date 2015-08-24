@@ -9,11 +9,15 @@ function Post(p) {
   this.text = p.text;
 }
 
+Post.collection = mongo.getDb().collection('posts')
+
 Object.defineProperty(Post, 'collection', {
   get: function () {
     return mongo.getDb().collection('posts');
   }
 });
+
+
 
 Post.count = function (cb) {
   return Post.collection.count(cb);

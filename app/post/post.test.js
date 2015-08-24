@@ -80,4 +80,11 @@ describe('Post', function () {
       });
     });
   });
+
+  describe('.validate()', function () {
+    it('should throw an error if more than two words are submited', function () {
+      var testString = "kitten assault imminent"
+      expect(Post.validate("kitten assault imminent")).to.equal.(err)
+    })
+  })
 });
