@@ -43,9 +43,13 @@ Post.findAll = function (cb) {
   });
 };
 
-Post.validate = function (post, cb) {
+Post.trim = function (req, res, next) {
   req.body.text = req.body.text.trim();
-  var postArray = req.body.text.split(" ");
+  next();
+}
+
+Post.validate = function (post, res, next) {
+  var postArray = post.split(" ");
   if (postArray[0] === ""){
     throw new Error('Post must contain at least one character')
   } else if (postArray.length > 2) {
@@ -57,6 +61,7 @@ Post.validate = function (post, cb) {
   } else if (postArray[0][0] !== "@" && postArray[1][0] !== "@"){
     throw new Error('You may only have one mention')
   }
+  next();
 }
 
 module.exports = Post;

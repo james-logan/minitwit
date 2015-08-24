@@ -21,3 +21,8 @@ module.exports.show = function (req, res) {
     res.render('post/show', {post: post});
   });
 };
+
+module.exports.validate = function (req.body.text, res, next) {
+  Post.trim(req.body.text);
+  Post.validate(req.body.text, res, next);
+};
