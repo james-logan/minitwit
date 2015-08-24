@@ -22,7 +22,7 @@ module.exports.show = function (req, res) {
   });
 };
 
-module.exports.validate = function (req.body.text, res, next) {
-  Post.trim(req.body.text);
+module.exports.validate = function (req, res, next) {
+  req.body.text = Post.trim(req.body.text);
   Post.validate(req.body.text, res, next);
 };
