@@ -13,8 +13,8 @@ describe('Post Routes', function () {
   before(function (done) {
     mongo.connect(function () {
       var seedPosts = [
-        {text: 'Foo'},
-        {text: 'Bar'}
+        {content: {text: 'Foo'}},
+        {content: {text: 'Bar'}}
       ];
 
       Post.collection.insertMany(seedPosts, function (err, result) {

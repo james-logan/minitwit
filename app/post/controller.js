@@ -23,6 +23,6 @@ module.exports.show = function (req, res) {
 };
 
 module.exports.parse = function (req, res, next) {
-  req.body.text = Post.parse(req.body.text);
+  req.body.content = Post.parse(req.body.text);
   next();
 };

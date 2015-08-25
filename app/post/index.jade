@@ -8,4 +8,4 @@ block content
   ul
     each post in posts
       li
-        a(href='/post/' + post._id)= post.text
+        a(href='/post/' + post._id)= post.content.text
