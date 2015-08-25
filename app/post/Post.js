@@ -7,6 +7,7 @@ var mongo = require('../../lib/mongo/');
 
 function Post(p) {
   this.text = p.text;
+  this.content = p.content;
 }
 
 Object.defineProperty(Post, 'collection', {
@@ -20,7 +21,8 @@ Post.count = function (cb) {
 };
 
 Post.create = function (post, cb) {
-  Post.collection.insertOne(post, cb);
+  var constructedPost = new Post(post);
+  Post.collection.insertOne(constructedPost, cb);
 };
 
 Post.dropCollection = function (cb) {

@@ -25,6 +25,21 @@ describe('Post', function () {
     Post.dropCollection(done);
   });
 
+  describe('constructor', function () {
+    it('should return a Post object', function () {
+      var post = new Post({});
+
+      expect(post).to.be.an.instanceOf(Post);
+    });
+
+    it('should return all required fields ', function () {
+      var potentialPost = {text: 'foo', content: {text:'foo'}};
+      var postAfterConstructer = new Post(potentialPost);
+
+      expect(postAfterConstructer).to.eql({text: 'foo', content: {text:'foo'}});
+    });
+  });
+
   describe('findById', function () {
     it('should return a Post object', function (done) {
       var id = seededPosts[0]._id;
