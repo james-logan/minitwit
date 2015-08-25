@@ -49,7 +49,8 @@ describe('Post Routes', function () {
 
         request(app)
           .post('/post')
-          .field('text', 'Baz')
+          .type('form')
+          .send({text: 'Baz'})
           .expect(302)
           .expect('Moved Temporarily. Redirecting to /')
           .end(function (err) {
