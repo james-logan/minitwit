@@ -9,12 +9,17 @@ extends: eslint:recommended
 root: true
 
 rules:
+  camelcase: 2
+  comma-dangle: [2, never]
+  comma-style: [2, last]
   eol-last: 2
   indent: [2, 2]
   no-multiple-empty-lines: 2
   no-trailing-spaces: 2
+  one-var: [2, {uninitialized: always, initialized: never}]
   quotes: [2, single, avoid-escape]
   semi: [2, always]
-  space-before-function-paren: [2, {"anonymous": "always", "named": "never"}]
+  space-before-function-paren: [2, {anonymous: always, named: never}]
   strict: [2, global]
+  yoda: [2, never]
 ...
