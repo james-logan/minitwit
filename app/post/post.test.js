@@ -100,4 +100,19 @@ describe('Post', function () {
       expect(Post.validate.bind(Post, "@kitten @assault")).to.throw(Error);
     });
   });
+
+  describe('.parse()', function () {
+    var parseObject = Post.parse('kitten @assault');
+    it('should return an object with two keys', function () {
+      var keyNumber = Object.keys(parseObject).length
+      expect(typeof parseObject).to.equal('object')
+      expect(keyNumber).to.equal(2)
+    })
+    it('should sort mentions into the mention key', function () {
+      expect(parseObject.mention).to.equal('@assault');
+    })
+    it('should put the whole text under the text key', function () {
+      expect(parseObject.text).to.equal('kitten @assault')
+    })
+  })
 });
